@@ -1,9 +1,12 @@
-<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jr="http://openrosa.org/javarosa">
+<h:html xmlns="http://www.w3.org/2002/xforms" 
+  xmlns:h="http://www.w3.org/1999/xhtml" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns:jr="http://openrosa.org/javarosa">
   <h:head>
-    <h:title>2. OEM Participant v4 ALE</h:title>
+    <h:title>2. OEM Participant v4 CountryName</h:title>
     <model>
       <instance>
-        <data id="OEMParticipantv4_ALE">
+        <data id="OEMParticipantv4_CountryName">
           <meta>
             <instanceID/>
             <randomnum/>
@@ -13,12 +16,10 @@
           <p_EUID/>
           <p_ClusterID/>
           <p_Consent/>
-          <p_HowLongLived/>
           <p_Sex/>
           <p_AgeYrs/>
           <p_Travel/>
-          <p_IVM/>
-          <p_IVMWhere/>
+          <!-- Add the name of other variable here -->
           <p_IDMethod/>
           <p_BarcodeID/>
           <p_GenerateID/>
@@ -57,12 +58,6 @@
           <text id="/data/p_Consent:option1">
             <value>No</value>
           </text>
-          <text id="/data/p_HowLongLived:label">
-            <value>How many years has the respondent lived in the area?</value>
-          </text>
-          <text id="/data/p_HowLongLived:hint">
-            <value>Less than 10 years will end survey</value>
-          </text>
           <text id="/data/p_Sex:label">
             <value>Sex of respondent</value>
           </text>
@@ -78,42 +73,7 @@
           <text id="/data/p_AgeYrs:hint">
             <value>Less than 20 years old will end survey</value>
           </text>
-          <text id="/data/p_Travel:label">
-            <value>Do you frequently travel long distances from this village?</value>
-          </text>
-          <text id="/data/p_Travel:option0">
-            <value>Yes</value>
-          </text>
-          <text id="/data/p_Travel:option1">
-            <value>No</value>
-          </text>
-          <text id="/data/p_IVM:label">
-            <value>Have you taken Ivermectin in the past 12 months?</value>
-          </text>
-          <text id="/data/p_IVM:option0">
-            <value>Yes</value>
-          </text>
-          <text id="/data/p_IVM:option1">
-            <value>No</value>
-          </text>
-          <text id="/data/p_IVM:option2">
-            <value>Don't know</value>
-          </text>
-          <text id="/data/p_IVMWhere:label">
-            <value>If Yes, where were you given Ivermectin?</value>
-          </text>
-          <text id="/data/p_IVMWhere:option0">
-            <value>In this village, as part of a mass treatment campaign</value>
-          </text>
-          <text id="/data/p_IVMWhere:option1">
-            <value>In this village, local clinic or pharmacy</value>
-          </text>
-          <text id="/data/p_IVMWhere:option2">
-            <value>In another village, as part of mass treatment campaign</value>
-          </text>
-          <text id="/data/p_IVMWhere:option3">
-            <value>In another village, local clinic or pharmacy</value>
-          </text>
+          <!-- Add labe/hint for specific disease here -->
           <text id="/data/p_IDMethod:label">
             <value>How will the individual's unique ID be generated?</value>
           </text>
@@ -141,13 +101,9 @@
       <bind nodeset="/data/p_EUID" type="string" required="true()" db_get="col_2" db_filter_by_col_1="/data/p_DistrictID"/>
       <bind nodeset="/data/p_ClusterID" type="string" required="true()" db_get="col_3" db_filter_by_col_2="/data/p_EUID" db_filter_by_col_1="/data/p_DistrictID"/>
       <bind nodeset="/data/p_Consent" type="select1" required="true()"/>
-      <bind nodeset="/data/p_HowLongLived" type="int" relevant="(selected(/data/p_Consent, 'Yes'))"/>
-      <bind nodeset="/data/p_Sex" type="select1" required="true()"  relevant="/data/p_HowLongLived > 9"/>
-      <bind nodeset="/data/p_AgeYrs" type="int" required="true()"  relevant="/data/p_HowLongLived > 9"/>
-      <bind nodeset="/data/p_Travel" type="select1" required="true()"  relevant="/data/p_AgeYrs > 19"/>
-      <bind nodeset="/data/p_IVM" type="select1" required="true()" relevant="/data/p_AgeYrs > 19"/>
-      <bind nodeset="/data/p_IVMWhere" type="select1" required="true()" relevant="(selected(/data/p_IVM, 'Yes'))"/>
-      <bind nodeset="/data/p_IDMethod" type="select1" required="true()"  relevant="/data/p_AgeYrs > 19"/>
+      <!-- Define binding for specific disease here -->
+      <bind nodeset="/data/p_Sex" type="select1" required="true()" />
+      <bind nodeset="/data/p_AgeYrs" type="int" required="true()" />
       <bind nodeset="/data/p_BarcodeID" type="barcode" required="true()" relevant="(selected(/data/p_IDMethod, 'Scanner'))"/>
       <bind nodeset="/data/p_GenerateID" type="string" required="true()" readonly="true()" relevant="(selected(/data/p_IDMethod, 'IDGeneration'))" calculate="concat('NW', '-', /data/p_EUID, '-', /data/meta/randomnum)"/>
       <bind nodeset="/data/p_AdditionalNotes" type="string"/>
@@ -180,10 +136,6 @@
         <value>No</value>
       </item>
     </select1>
-    <input ref="/data/p_HowLongLived">
-      <label ref="jr:itext('/data/p_HowLongLived:label')"/>
-      <hint ref="jr:itext('/data/p_HowLongLived:hint')"/>
-    </input>
     <select1 ref="/data/p_Sex">
       <label ref="jr:itext('/data/p_Sex:label')"/>
       <item>
@@ -199,51 +151,7 @@
       <label ref="jr:itext('/data/p_AgeYrs:label')"/>
       <hint ref="jr:itext('/data/p_AgeYrs:hint')"/>
     </input>
-    <select1 ref="/data/p_Travel">
-      <label ref="jr:itext('/data/p_Travel:label')"/>
-      <item>
-        <label ref="jr:itext('/data/p_Travel:option0')"/>
-        <value>Yes</value>
-      </item>
-      <item>
-        <label ref="jr:itext('/data/p_Travel:option1')"/>
-        <value>No</value>
-      </item>
-    </select1>
-    <select1 ref="/data/p_IVM">
-      <label ref="jr:itext('/data/p_IVM:label')"/>
-      <item>
-        <label ref="jr:itext('/data/p_IVM:option0')"/>
-        <value>Yes</value>
-      </item>
-      <item>
-        <label ref="jr:itext('/data/p_IVM:option1')"/>
-        <value>No</value>
-      </item>
-      <item>
-        <label ref="jr:itext('/data/p_IVM:option2')"/>
-        <value>DontKnow</value>
-      </item>
-    </select1>
-    <select1 ref="/data/p_IVMWhere">
-      <label ref="jr:itext('/data/p_IVMWhere:label')"/>
-      <item>
-        <label ref="jr:itext('/data/p_IVMWhere:option0')"/>
-        <value>ThisVillageMDA</value>
-      </item>
-      <item>
-        <label ref="jr:itext('/data/p_IVMWhere:option1')"/>
-        <value>ThisVillageClinic</value>
-      </item>
-      <item>
-        <label ref="jr:itext('/data/p_IVMWhere:option2')"/>
-        <value>AnotherVillageMDA</value>
-      </item>
-      <item>
-        <label ref="jr:itext('/data/p_IVMWhere:option3')"/>
-        <value>AnotherVillageClinic</value>
-      </item>
-    </select1>
+    <!-- Add the value for specific disease here -->
     <select1 ref="/data/p_IDMethod">
       <label ref="jr:itext('/data/p_IDMethod:label')"/>
       <item>

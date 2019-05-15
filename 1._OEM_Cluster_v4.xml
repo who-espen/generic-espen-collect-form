@@ -19,7 +19,7 @@
           <c_ClusterID2/>
           <c_GPS/>
           <c_VillagePop/>
-          <c_BlackFly/>
+          <!-- Add the name of other variable here -->
           <c_ClusterNotes/>
         </data>
       </instance>
@@ -76,18 +76,7 @@
           <text id="/data/c_VillagePop:hint">
             <value>Please obtain this information from the community MDA register</value>
           </text>
-          <!-- <text id="/data/c_BlackFly:label">
-            <value>Can local leaders confirm the presence of biting black flies in or near the community?</value>
-          </text>
-          <text id="/data/c_BlackFly:option0">
-            <value>Yes</value>
-          </text>
-          <text id="/data/c_BlackFly:option1">
-            <value>No</value>
-          </text>
-          <text id="/data/c_BlackFly:option2">
-            <value>Don't know</value>
-          </text> -->
+          <!-- Add labe/hint for specific disease here -->
           <text id="/data/c_ClusterNotes:label">
             <value>Additional notes to add?</value>
           </text>
@@ -103,7 +92,7 @@
       <bind nodeset="/data/c_ClusterID2" type="int" required="true()" maxLength="3" constraint=". =/data/c_ClusterID1" db_add_col_1="/data/c_DistrictID" db_add_col_2="/data/c_EU" db_add_col_3="."/>
       <bind nodeset="/data/c_GPS" type="geopoint" required="true()"/>
       <bind nodeset="/data/c_VillagePop" type="int" required="true()"/>
-      <!-- <bind nodeset="/data/c_BlackFly" type="select1" required="true()"/> -->
+      <!-- Define binding for specific disease here -->
       <bind nodeset="/data/c_ClusterNotes" type="string"/>
     </model>
   </h:head>
@@ -157,21 +146,7 @@
       <label ref="jr:itext('/data/c_VillagePop:label')"/>
       <hint ref="jr:itext('/data/c_VillagePop:hint')"/>
     </input>
-    <!-- <select1 ref="/data/c_BlackFly">
-      <label ref="jr:itext('/data/c_BlackFly:label')"/>
-      <item>
-        <label ref="jr:itext('/data/c_BlackFly:option0')"/>
-        <value>Yes</value>
-      </item>
-      <item>
-        <label ref="jr:itext('/data/c_BlackFly:option1')"/>
-        <value>No</value>
-      </item>
-      <item>
-        <label ref="jr:itext('/data/c_BlackFly:option2')"/>
-        <value>DontKnow</value>
-      </item>
-    </select1> -->
+    <!-- Add the value for specific disease here -->
     <input ref="/data/c_ClusterNotes">
       <label ref="jr:itext('/data/c_ClusterNotes:label')"/>
     </input>
