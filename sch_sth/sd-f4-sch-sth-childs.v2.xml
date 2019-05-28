@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<h:html xmlns="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:jr="http://openrosa.org/javarosa" xmlns:orx="http://openrosa.org/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <h:head>
+    <h:title>South Sudan:  F4 &amp; F6- CHILDS FORM SCH/STH</h:title>
+    <model>
+      <instance>
+        <sd-f4-sch-sth-childs.v2 id="sd-f4-f6-sch-sth-childs" version="3">
+          <s_recorder_id/>
+          <s_school_id/>
+          <w_particiant_id_generated/>
+          <w_particiant_id_generated2/>
+          <s_age/>
+          <s_sex/>
+          <s_urinate_place/>
+          <s_urinate_place_other/>
+          <s_defecate_place/>
+          <s_defecate_place_other/>
+          <s_water_activities/>
+          <s_water_activities_other/>
+          <s_remarks/>
+          <s_saved_at/>
+          <meta>
+            <instanceID/>
+          </meta>
+        </sd-f4-sch-sth-childs.v2>
+      </instance>
+      <bind constraint="regex(.,'^[0-9]{2}$')" jr:constraintMsg="Invalid. Recorder ID code is 2 numbers long." nodeset="/sd-f4-sch-sth-childs.v2/s_recorder_id" required="true()" type="int"/>
+      <bind constraint="regex(.,'^[0-9]{3}$')" jr:constraintMsg="Invalid. Recorder ID code is 3 numbers long." nodeset="/sd-f4-sch-sth-childs.v2/s_school_id" required="true()" type="int"/>
+      <bind constraint="regex(., '^[0-9]{3}-[0-9]{4}$')" jr:constraintMsg="The format must be 123-1234" nodeset="/sd-f4-sch-sth-childs.v2/w_particiant_id_generated" required="true()" type="text"/>
+      <bind constraint=".= /sd-f4-sch-sth-childs.v2/w_particiant_id_generated " jr:constraintMsg="The ID is not equal to the generated ID" nodeset="/sd-f4-sch-sth-childs.v2/w_particiant_id_generated2" required="true()" type="text"/>
+      <bind constraint=".&gt;=9 and .&lt;=15" jr:constraintMsg="This is an excluded criteria" nodeset="/sd-f4-sch-sth-childs.v2/s_age" required="true()" type="int"/>
+      <bind nodeset="/sd-f4-sch-sth-childs.v2/s_sex" required="true()" type="select1"/>
+      <bind nodeset="/sd-f4-sch-sth-childs.v2/s_urinate_place" required="true()" type="select1"/>
+      <bind nodeset="/sd-f4-sch-sth-childs.v2/s_urinate_place_other" relevant="selected(../s_urinate_place, 'other')" type="text"/>
+      <bind nodeset="/sd-f4-sch-sth-childs.v2/s_defecate_place" required="true()" type="select1"/>
+      <bind nodeset="/sd-f4-sch-sth-childs.v2/s_defecate_place_other" relevant="selected(../s_defecate_place, 'other')" type="text"/>
+      <bind nodeset="/sd-f4-sch-sth-childs.v2/s_water_activities" required="true()" type="select"/>
+      <bind nodeset="/sd-f4-sch-sth-childs.v2/s_water_activities_other" relevant="selected(../s_water_activities, 'other')" type="text"/>
+      <bind nodeset="/sd-f4-sch-sth-childs.v2/s_remarks" required="false()" type="text"/>
+      <bind jr:preload="timestamp" jr:preloadParams="end" nodeset="/sd-f4-sch-sth-childs.v2/s_saved_at" type="dateTime"/>
+      <bind calculate="concat('uuid:', uuid())" nodeset="/sd-f4-sch-sth-childs.v2/meta/instanceID" readonly="true()" type="string"/>
+    </model>
+  </h:head>
+  <h:body>
+    <input ref="/sd-f4-sch-sth-childs.v2/s_recorder_id">
+      <label>Recorder ID</label>
+      <hint>2 digit code assigned to you</hint>
+    </input>
+    <input ref="/sd-f4-sch-sth-childs.v2/s_school_id">
+      <label>Enter the school code</label>
+      <hint>3 digit code assigned to this school</hint>
+    </input>
+    <input ref="/sd-f4-sch-sth-childs.v2/w_particiant_id_generated">
+      <label>Enter unique ID from the diagnostic test (must be entered as 123-1234 digit only with dashes) administered</label>
+    </input>
+    <input ref="/sd-f4-sch-sth-childs.v2/w_particiant_id_generated2">
+      <label>Repeat unique ID (must be entered as 123-1234 digit only with dashes)</label>
+    </input>
+    <input ref="/sd-f4-sch-sth-childs.v2/s_age">
+      <label>Enter the age of the child</label>
+    </input>
+    <select1 ref="/sd-f4-sch-sth-childs.v2/s_sex">
+      <label>Enter the sex of the child</label>
+      <item>
+        <label>Female</label>
+        <value>F</value>
+      </item>
+      <item>
+        <label>Male</label>
+        <value>M</value>
+      </item>
+    </select1>
+    <select1 ref="/sd-f4-sch-sth-childs.v2/s_urinate_place">
+      <label>When you are at school, where do you usually go to URINATE?</label>
+      <item>
+        <label>0. In the school toilet</label>
+        <value>0_In the school toilet</value>
+      </item>
+      <item>
+        <label>1. Around the school compound</label>
+        <value>1_Around the school compound</value>
+      </item>
+      <item>
+        <label>2. Outside of school compound</label>
+        <value>2_Outside of school compound</value>
+      </item>
+      <item>
+        <label>3. I wait/hold it</label>
+        <value>3_I wait/hold it</value>
+      </item>
+      <item>
+        <label>4. Others (specify)</label>
+        <value>4_Others (specify)</value>
+      </item>
+      <item>
+        <label>99. Don’t know</label>
+        <value>99_Don’t know</value>
+      </item>
+      <item>
+        <label>Other</label>
+        <value>other</value>
+      </item>
+    </select1>
+    <input ref="/sd-f4-sch-sth-childs.v2/s_urinate_place_other">
+      <label>Specify other.</label>
+    </input>
+    <select1 ref="/sd-f4-sch-sth-childs.v2/s_defecate_place">
+      <label>When you are at school, where do you usually go to DEFECATE?</label>
+      <item>
+        <label>0. In the school toilet</label>
+        <value>0_In the school toilet</value>
+      </item>
+      <item>
+        <label>1. Around the school compound</label>
+        <value>1_Around the school compound</value>
+      </item>
+      <item>
+        <label>2. Outside of school compound</label>
+        <value>2_Outside of school compound</value>
+      </item>
+      <item>
+        <label>3. I wait/hold it</label>
+        <value>3_I wait/hold it</value>
+      </item>
+      <item>
+        <label>4. Others (specify)</label>
+        <value>4_Others (specify)</value>
+      </item>
+      <item>
+        <label>99. Don’t know</label>
+        <value>99_Don’t know</value>
+      </item>
+      <item>
+        <label>Other</label>
+        <value>other</value>
+      </item>
+    </select1>
+    <input ref="/sd-f4-sch-sth-childs.v2/s_defecate_place_other">
+      <label>Specify other.</label>
+    </input>
+    <select ref="/sd-f4-sch-sth-childs.v2/s_water_activities">
+      <label>If there are water bodies (river, stream, canal, lake, dam etc), which of the following activities do you perform?</label>
+      <item>
+        <label>1. Bathing</label>
+        <value>1_Bathing</value>
+      </item>
+      <item>
+        <label>2. Washing clothes, dishes</label>
+        <value>2_Washing_clothes._dishes</value>
+      </item>
+      <item>
+        <label>3. Fishing</label>
+        <value>3_Fishing</value>
+      </item>
+      <item>
+        <label>4. Crossing water</label>
+        <value>4_Crossing_water</value>
+      </item>
+      <item>
+        <label>5. Fetching water</label>
+        <value>5_Fetching_water</value>
+      </item>
+      <item>
+        <label>6. Playing</label>
+        <value>6_Playing</value>
+      </item>
+      <item>
+        <label>7. Swimming</label>
+        <value>7_Swimming</value>
+      </item>
+      <item>
+        <label>Other</label>
+        <value>other</value>
+      </item>
+    </select>
+    <input ref="/sd-f4-sch-sth-childs.v2/s_water_activities_other">
+      <label>Specify other.</label>
+    </input>
+    <input ref="/sd-f4-sch-sth-childs.v2/s_remarks">
+      <label>Additional notes</label>
+    </input>
+  </h:body>
+</h:html>

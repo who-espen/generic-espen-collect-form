@@ -18,7 +18,6 @@
           <p_Consent/>
           <p_Sex/>
           <p_AgeYrs/>
-          <p_Travel/>
           <!-- Add the name of other variable here -->
           <p_IDMethod/>
           <p_BarcodeID/>
